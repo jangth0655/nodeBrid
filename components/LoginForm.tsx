@@ -1,8 +1,21 @@
-import { Input, Button } from 'antd';
+import { Input, Button, Form } from 'antd';
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
+import styled from 'styled-components';
 
-const LoginForm = () => {
+const ButtonWrapper = styled.div`
+  margin-top: 10px;
+`;
+
+const FormWrapper = styled(Form)`
+  padding: 10px;
+`;
+
+interface Props {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginForm = ({ setIsLoggedIn }: Props) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,8 +30,10 @@ const LoginForm = () => {
     []
   );
 
+  const onSubmitForm = useCallback(() => {}, [id, password]);
+
   return (
-    <form>
+    <FormWrapper onFinish={onSubmitForm}>
       <div>
         <label htmlFor='user-id'>아이디</label>
         <br />
@@ -34,15 +49,15 @@ const LoginForm = () => {
           onChange={onChangePassword}
         />
       </div>
-      <div>
+      <ButtonWrapper>
         <Button type='primary' htmlType='submit' loading={false}>
           로그인
         </Button>
         <Link href='/signup'>
           <button>회원가입</button>
         </Link>
-      </div>
-    </form>
+      </ButtonWrapper>
+    </FormWrapper>
   );
 };
 

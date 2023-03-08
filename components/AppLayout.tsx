@@ -1,34 +1,53 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { Menu, Input, Row, Col } from 'antd';
+import { Menu, Input, Row, Col, MenuProps } from 'antd';
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
+import styled from 'styled-components';
 
 interface Props {
   children: React.ReactNode;
 }
 
+const SearchInput = styled(Input.Search)`
+  vertical-align: middle;
+`;
+
+const menuItems: MenuProps['items'] = [
+  {
+    label: <Link href='/'>노드버드</Link>,
+    key: 'home',
+    className: 'class1',
+  },
+  {
+    label: <Link href='/profile'>프로필</Link>,
+    key: 'profile',
+    className: 'class2',
+  },
+  {
+    label: <SearchInput enterButton />,
+    key: 'searchInput',
+    className: 'class3',
+  },
+  {
+    label: <Link href='/signup'>회원가입</Link>,
+    key: 'signup',
+    className: 'class4',
+  },
+];
+
 const AppLayout = ({ children }: Props) => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
-      <Menu mode='horizontal'>
-        <Menu.Item>
-          <Link href='/'>노드버드</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href='/profile'>프로필</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Input.Search enterButton style={{ verticalAlign: 'middle' }} />
-        </Menu.Item>
-        <Menu.Item>
-          <Link href='/signup'>회원가입</Link>
-        </Menu.Item>
-      </Menu>
+      <Menu mode='horizontal' items={menuItems} />
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile /> : <LoginForm />}
+          {isLoggedIn ? (
+            <UserProfile setIsLoggedIn={setIsLoggedIn} />
+          ) : (
+            <LoginForm setIsLoggedIn={setIsLoggedIn} />
+          )}
         </Col>
         <Col xs={24} md={12}>
           {children}
