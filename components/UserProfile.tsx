@@ -2,13 +2,14 @@ import { Card, Avatar, Button } from 'antd';
 import { useCallback } from 'react';
 
 interface Props {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserProfile = ({ setIsLoggedIn }: Props) => {
   const onLogOut = useCallback(() => {
-    setIsLoggedIn: false;
+    setIsLoggedIn(false);
   }, []);
+
   return (
     <Card
       actions={[

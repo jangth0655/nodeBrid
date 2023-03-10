@@ -30,7 +30,11 @@ const LoginForm = ({ setIsLoggedIn }: Props) => {
     []
   );
 
-  const onSubmitForm = useCallback(() => {}, [id, password]);
+  const onSubmitForm = useCallback(() => {
+    if (id && password) {
+      setIsLoggedIn(true);
+    }
+  }, [id, password]);
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
