@@ -1,8 +1,9 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import 'antd/dist/reset.css';
+import wrapper from '../store/configureStore';
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -12,4 +13,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
     </>
   );
-}
+};
+
+export default wrapper.withRedux(MyApp);

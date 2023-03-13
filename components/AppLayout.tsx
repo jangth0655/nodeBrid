@@ -4,6 +4,7 @@ import { Menu, Input, Row, Col, MenuProps } from 'antd';
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 interface Props {
   children: React.ReactNode;
@@ -37,17 +38,13 @@ const menuItems: MenuProps['items'] = [
 ];
 
 const AppLayout = ({ children }: Props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useSelector((state: any) => state?.user?.isLoggedIn);
   return (
     <div>
       <Menu mode='horizontal' items={menuItems} />
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? (
-            <UserProfile setIsLoggedIn={setIsLoggedIn} />
-          ) : (
-            <LoginForm setIsLoggedIn={setIsLoggedIn} />
-          )}
+          {isLoggedIn ? <UserProfile /> : <LoginForm />}
         </Col>
         <Col xs={24} md={12}>
           {children}
